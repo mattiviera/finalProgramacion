@@ -4,7 +4,7 @@ from sqlalchemy import Column, Integer, String
 class Usuario(Base):
     __tablename__ = 'usuarios'
 
-    id = Column(Integer, primary_key=True)
-    nombre: str 
-    edad: Optional[int]  
-    correo: str  
+    id = Column(String, primary_key=True)
+    nombre = Column(String(100))
+    edad = Column(Integer)
+    correo = Column(String(100))
