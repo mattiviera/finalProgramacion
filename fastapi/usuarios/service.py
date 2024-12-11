@@ -22,7 +22,7 @@ async def get_usuario_by_id(id: str):
     finally:
         db.close()
 
-async def create_usuario(usuario: UsuarioCreateDTO):
+async def create_usuario_service(usuario: UsuarioCreateDTO):
     try:
         db = sessionlocal()
         nuevo_usuario = Usuario(
@@ -40,7 +40,7 @@ async def create_usuario(usuario: UsuarioCreateDTO):
     finally:
         db.close()
 
-async def update_usuario(id: str, usuario_update: UsuarioUpdateDTO):
+async def update_usuario_service(id: str, usuario_update: UsuarioUpdateDTO):
     try:
         db = sessionlocal()
         usuario = db.query(Usuario).filter(Usuario.id == id).first()
@@ -59,7 +59,7 @@ async def update_usuario(id: str, usuario_update: UsuarioUpdateDTO):
     finally:
         db.close()
 
-async def delete_usuario(id: str):
+async def delete_usuario_service(id: str):
     try:
         db = sessionlocal()
         usuario = db.query(Usuario).filter(Usuario.id == id).first()
