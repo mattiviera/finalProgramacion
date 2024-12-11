@@ -22,7 +22,7 @@ async def get_tarea_by_id(id: str):
     finally:
         db.close()
 
-async def create_tarea(tarea: TareaCreateDTO):
+async def create_tarea_service(tarea: TareaCreateDTO):
     try:
         db = sessionlocal()
         nueva_tarea = Tarea(
@@ -41,7 +41,7 @@ async def create_tarea(tarea: TareaCreateDTO):
     finally:
         db.close()
 
-async def update_tarea(id: str, tarea_update: TareaUpdateDTO):
+async def update_tarea_service(id: str, tarea_update: TareaUpdateDTO):
     try:
         db = sessionlocal()
         tarea = db.query(Tarea).filter(Tarea.id == id).first()
@@ -60,7 +60,7 @@ async def update_tarea(id: str, tarea_update: TareaUpdateDTO):
     finally:
         db.close()
 
-async def delete_tarea(id: str):
+async def delete_tarea_service(id: str):
     try:
         db = sessionlocal()
         tarea = db.query(Tarea).filter(Tarea.id == id).first()
