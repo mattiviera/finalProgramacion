@@ -6,6 +6,7 @@ from config.cnx import engine
 from default.routes import default
 from usuarios.routes import usuario_router
 from tareas.routes import tarea_router
+from estadoTareas.routes import estado_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -38,5 +39,6 @@ app.add_middleware(
 app.include_router(default, prefix='', tags=['App Routes Default'])
 app.include_router(usuario_router, prefix='/usuario', tags=['usuario Endpoints'])
 app.include_router(tarea_router, prefix='/tarea', tags=['tarea Endpoints'])
+app.include_router(estado_router, prefix='/estado', tags=['estado Endpoints'])
 
 Base.metadata.create_all(bind=engine)
