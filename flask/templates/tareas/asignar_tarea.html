@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Asignar Tarea</h1>
+<form method="POST">
+    <label>Usuario:</label>
+    <select name="usuario_id">
+        {% for usuario in usuarios %}
+        <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+        {% endfor %}
+    </select>
+    <label>Tarea:</label>
+    <input type="text" name="tarea" required>
+    <label>Fecha:</label>
+    <input type="date" name="fecha" required>
+    <label>Estado:</label>
+    <select name="id_estado">
+        {% for estado in estados %}
+        <option value="{{ estado.id }}">{{ estado.estado }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Asignar</button>
+</form>
+{% endblock %}

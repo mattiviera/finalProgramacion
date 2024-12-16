@@ -1,0 +1,23 @@
+# Python general
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# Entorno virtual
+venv/
+ENV/
+env/
+.venv/
+
+# Archivos de configuración específicos del sistema operativo
+*.DS_Store
+*.idea/
+*.vscode/
+
+# Archivos de instalación y configuraciones de pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de desarrollo de Flask
+instance/

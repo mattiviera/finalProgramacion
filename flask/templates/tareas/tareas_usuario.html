@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Tareas de Usuario</h1>
+<table>
+    <tr>
+        <th>Tarea</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+    </tr>
+    {% for tarea in tareas %}
+    <tr>
+        <td>{{ tarea.tarea }}</td>
+        <td>{{ tarea.fecha }}</td>
+        <td>{{ tarea.id_estado }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
