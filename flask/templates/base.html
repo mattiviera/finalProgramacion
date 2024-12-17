@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,13 +16,23 @@
             </ul>
         </nav>
     </header>
-
+    
     <main>
         {% block content %}
-        <h1>Bienvenido</h1>
-        <p>Selecciona una opción del menú para comenzar.</p>
+        <div class="welcome-container">
+            <h1>Bienvenido a tu Sistema de Gestión</h1>
+            <p>Optimiza tu productividad con nuestra plataforma integral de gestión de usuarios y tareas. Organiza, colabora y mantén el control total de tus proyectos.</p>
+            
+            <div class="welcome-actions">
+                <a href="{{ url_for('listar_usuarios') }}" class="btn">Gestionar Usuarios</a>
+                <a href="{{ url_for('listar_tareas') }}" class="btn">Administrar Tareas</a>
+            </div>
+        </div>
         {% endblock %}
     </main>
 
+    <footer>
+        <p>&copy; 2024 Sistema de Gestión. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

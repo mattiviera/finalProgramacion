@@ -1,37 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container mt-4">
-    <h1>Editar Tarea</h1>
-    <form method="POST" action="{{ url_for('editar_tarea', id=tarea.id) }}">
+    <h1>Crear Tarea</h1>
+    <form method="POST" action="{{ url_for('crear_tarea') }}">
         <div class="form-group">
             <label for="usuario_id">Usuario</label>
             <select name="usuario_id" id="usuario_id" class="form-control" required>
+                <option value="">Seleccionar Usuario</option>
                 {% for usuario in usuarios %}
-                <option value="{{ usuario.id }}" {% if usuario.id == tarea.usuario_id %}selected{% endif %}>
-                    {{ usuario.nombre }}
-                </option>
+                <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="form-group">
             <label for="tarea">Descripción de la Tarea</label>
-            <input type="text" name="tarea" id="tarea" class="form-control" value="{{ tarea.tarea }}" required>
+            <input type="text" name="tarea" id="tarea" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="fecha">Fecha</label>
-            <input type="date" name="fecha" id="fecha" class="form-control" value="{{ tarea.fecha }}" required>
+            <input type="date" name="fecha" id="fecha" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="id_estado">Estado</label>
             <select name="id_estado" id="id_estado" class="form-control" required>
                 {% for estado in estados %}
-                <option value="{{ estado.id }}" {% if estado.id == tarea.id_estado %}selected{% endif %}>
-                    {{ estado.estado }}
-                </option>
+                <option value="{{ estado.id }}">{{ estado.estado }}</option>
                 {% endfor %}
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Actualizar Tarea</button>
+        <button type="submit" class="btn btn-primary">Crear Tarea</button>
     </form>
 </div>
 {% endblock %}

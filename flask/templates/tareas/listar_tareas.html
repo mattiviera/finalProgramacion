@@ -1,21 +1,71 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
-<h1>Tareas</h1>
-<a href="{{ url_for('asignar_tarea') }}">Asignar Tarea</a>
-<table>
-    <tr>
-        <th>Tarea</th>
-        <th>Usuario</th>
-        <th>Fecha</th>
-        <th>Estado</th>
-    </tr>
-    {% for tarea in tareas %}
-    <tr>
-        <td>{{ tarea.tarea }}</td>
-        <td>{{ tarea.usuario_id }}</td>
-        <td>{{ tarea.fecha }}</td>
-        <td>{{ tarea.id_estado }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="container mt-4">
+    <h1>Lista de Tareas</h1>
+    <a href="{{ url_for('crear_tarea') }}" class="btn btn-primary mb-3">Crear Nueva Tarea</a>
+    
+    <form method="GET" action="{{ url_for('listar_tareas') }}" class="mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <select name="id_estado" class="form-control">
+                    <option value="">Todos los Estados</option>
+                    {% for estado in estados %}
+                    <option value="{{ estado.id }}">{{ estado.estado }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select name="usuario_id" class="form-control">
+                    <option value="">Todos los Usuarios</option>
+                    {% for usuario in usuarios %}
+                    <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary">Filtrar</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tarea</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Usuario</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tarea in tareas %}
+            <tr>
+                <td>{{ tarea.tarea }}</td>
+                <td>{{ tarea.fecha }}</td>
+                <td>
+                    {% for estado in estados %}
+                        {% if estado.id == tarea.id_estado %}
+                            {{ estado.estado }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for usuario in usuarios %}
+                        {% if usuario.id == tarea.usuario_id %}
+                            {{ usuario.nombre }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url_for('editar_tarea', id=tarea.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <form action="{{ url_for('eliminar_tarea', id=tarea.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
