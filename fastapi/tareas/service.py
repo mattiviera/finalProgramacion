@@ -3,16 +3,23 @@ from tareas.dto import TareaCreateDTO, TareaUpdateDTO, DeleteTareaDTO
 from config.cnx import sessionlocal 
 from typing import Optional
 
-async def get_tareas(id_estado: Optional[int] = None):
+async def get_tareas(id_estado: Optional[int] = None, usuario_id: Optional[str] = None):
     try:
         db = sessionlocal()
         
-        # Si le proporciono un estado, filtra por ese estado
+        # Comenzar con una consulta base
+        query = db.query(Tarea)
+        
+        # Filtrar por estado si se proporciona
         if id_estado is not None:
-            tareas = db.query(Tarea).filter(Tarea.id_estado == id_estado).all()
-        else:
-            # Si no lo hago obtiene todas las tareas
-            tareas = db.query(Tarea).all()
+            query = query.filter(Tarea.id_estado == id_estado)
+        
+        # Filtrar por usuario si se proporciona
+        if usuario_id is not None:
+            query = query.filter(Tarea.usuario_id == usuario_id)
+        
+        # Obtener los resultados
+        tareas = query.all()
         
         return tareas
     except Exception as e:

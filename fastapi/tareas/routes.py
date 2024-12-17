@@ -18,10 +18,13 @@ def get_db():
         db.close()
 
 @tarea_router.get('/', response_model=list[TareaDTO], status_code=200)
-async def get_all_tareas(id_estado: Optional[int] = None):
-    tareas = await get_tareas(id_estado)
+async def get_all_tareas(
+    id_estado: Optional[int] = None, 
+    usuario_id: Optional[str] = None
+):
+    tareas = await get_tareas(id_estado, usuario_id)
     
-    if isinstance(tareas, str): 
+    if isinstance(tareas, str):  # Manejar el caso de error en get_tareas
         raise HTTPException(status_code=500, detail=tareas)
     
     if not tareas:
