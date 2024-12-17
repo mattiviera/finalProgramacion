@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from config.cnx import sessionlocal
 from estadoTareas.entity import Estado
 from estadoTareas.dto import EstadoTareaUpdate
+from typing import Optional
 
 
 tarea_router = APIRouter()
@@ -17,10 +18,15 @@ def get_db():
         db.close()
 
 @tarea_router.get('/', response_model=list[TareaDTO], status_code=200)
-async def get_all_tareas():
-    tareas = await get_tareas()
+async def get_all_tareas(id_estado: Optional[int] = None):
+    tareas = await get_tareas(id_estado)
+    
+    if isinstance(tareas, str): 
+        raise HTTPException(status_code=500, detail=tareas)
+    
     if not tareas:
         raise HTTPException(status_code=404, detail="No se encontraron tareas")
+    
     return tareas
 
 @tarea_router.get('/{id}', response_model=TareaDTO, status_code=200)

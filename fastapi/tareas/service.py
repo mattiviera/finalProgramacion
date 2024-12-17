@@ -1,11 +1,19 @@
 from tareas.entity import Tarea
 from tareas.dto import TareaCreateDTO, TareaUpdateDTO, DeleteTareaDTO
 from config.cnx import sessionlocal 
+from typing import Optional
 
-async def get_tareas():
+async def get_tareas(id_estado: Optional[int] = None):
     try:
         db = sessionlocal()
-        tareas = db.query(Tarea).all()
+        
+        # Si le proporciono un estado, filtra por ese estado
+        if id_estado is not None:
+            tareas = db.query(Tarea).filter(Tarea.id_estado == id_estado).all()
+        else:
+            # Si no lo hago obtiene todas las tareas
+            tareas = db.query(Tarea).all()
+        
         return tareas
     except Exception as e:
         return f'Ocurrió un error: {e}'
